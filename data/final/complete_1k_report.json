@@ -1,0 +1,24 @@
+{
+  "dataset_name": "LPARA Zero-Missing-Value Complete Dataset",
+  "total_complete_configurations": 1001,
+  "target_variable": "price_average",
+  "core_features_missing_count": 0,
+  "price_summary": {
+    "lowest": 26746.0,
+    "average": 101131.23,
+    "highest": 784990.0
+  },
+  "brand_breakdown": {
+    "ASUS": 255,
+    "HP": 221,
+    "Lenovo": 221,
+    "Acer": 129,
+    "Dell": 114,
+    "MSI": 21,
+    "Microsoft": 21,
+    "Samsung": 14,
+    "Motorola": 3,
+    "Infinix": 1,
+    "Gigabyte": 1
+  }
+}

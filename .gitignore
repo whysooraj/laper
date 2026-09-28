@@ -1,0 +1,27 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Raw scraped HTML cache (>250MB)
+data/raw/
+data/page_text.txt
+data/product.html
+data/test.html
+
+# Intermediate normalized pipeline cache
+data/normalized/deduped_laptops.jsonl
+data/normalized/invalid.jsonl
+data/normalized/normalized_laptops.jsonl
+data/normalized/priced_laptops.jsonl
+data/normalized/valid.jsonl
+
+# Logs
+logs/
+*.log
+
+# Environments & IDE
+.venv/
+env/
+venv/
+.idea/
