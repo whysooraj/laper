@@ -1,0 +1,23 @@
+{
+  "selected_numeric_features": [
+    "ram_gb",
+    "storage_gb",
+    "display_size_inches",
+    "ram_storage_ratio",
+    "cpu_tier",
+    "is_gaming",
+    "is_apple"
+  ],
+  "selected_categorical_features": [
+    "brand",
+    "cpu_brand",
+    "cpu_family",
+    "ram_type",
+    "storage_type",
+    "gpu_type",
+    "operating_system"
+  ],
+  "target_variable": "price_average",
+  "feature_selection_percentile": 85,
+  "feature_selection_method": "f_regression with SelectPercentile on OneHot encoded space"
+}

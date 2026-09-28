@@ -1,0 +1,82 @@
+{
+  "dataset_name": "LPARA Cleaned Laptop Price Dataset",
+  "total_records": 1292,
+  "total_features": 20,
+  "columns": [
+    "brand",
+    "model",
+    "price_average",
+    "price_category",
+    "cpu_brand",
+    "cpu_model",
+    "cpu_family",
+    "cpu_tier",
+    "ram_gb",
+    "ram_type",
+    "storage_gb",
+    "storage_type",
+    "ram_storage_ratio",
+    "display_size_inches",
+    "gpu_type",
+    "is_gaming",
+    "is_apple",
+    "is_touchscreen",
+    "is_oled",
+    "operating_system"
+  ],
+  "null_counts": {
+    "brand": 0,
+    "model": 0,
+    "price_average": 0,
+    "price_category": 0,
+    "cpu_brand": 0,
+    "cpu_model": 0,
+    "cpu_family": 0,
+    "cpu_tier": 0,
+    "ram_gb": 0,
+    "ram_type": 0,
+    "storage_gb": 0,
+    "storage_type": 0,
+    "ram_storage_ratio": 0,
+    "display_size_inches": 0,
+    "gpu_type": 0,
+    "is_gaming": 0,
+    "is_apple": 0,
+    "is_touchscreen": 0,
+    "is_oled": 0,
+    "operating_system": 0
+  },
+  "price_statistics": {
+    "min_price": 13990.0,
+    "median_price": 78990.0,
+    "mean_price": 100679.64,
+    "max_price": 729990.0
+  },
+  "brand_distribution": {
+    "ASUS": 286,
+    "Lenovo": 258,
+    "HP": 241,
+    "Acer": 187,
+    "Dell": 143,
+    "MSI": 70,
+    "Samsung": 36,
+    "Microsoft": 25,
+    "Apple": 24,
+    "Infinix": 12,
+    "Motorola": 3,
+    "Gigabyte": 3,
+    "Zebronics": 3,
+    "Colorful": 1
+  },
+  "price_category_distribution": {
+    "Mid-Range (40K-75K)": 538,
+    "Upper Mid-Range (75K-1.25L)": 427,
+    "Premium / Flagship (>1.25L)": 271,
+    "Budget (<40K)": 56
+  },
+  "export_paths": {
+    "cleaned_csv": "C:\\Users\\0528h\\OneDrive\\Documents\\lapra\\data\\cleaned\\lpara_cleaned_laptop_dataset.csv",
+    "root_download_csv": "C:\\Users\\0528h\\OneDrive\\Documents\\lapra\\lpara_cleaned_laptop_dataset.csv",
+    "cleaned_jsonl": "C:\\Users\\0528h\\OneDrive\\Documents\\lapra\\data\\cleaned\\lpara_cleaned_laptop_dataset.jsonl"
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "dataset": "lpara_cleaned_laptop_dataset.csv",
+  "total_configurations": 1292,
+  "train_samples": 1033,
+  "test_samples": 259,
+  "best_model": "Stacking Ensemble",
+  "best_test_r2": 0.8643,
+  "leaderboard": [
+    {
+      "model_name": "Stacking Ensemble",
+      "cv_r2_mean": 0.8128,
+      "cv_r2_std": 0.0392,
+      "test_r2": 0.8643,
+      "test_mae": 14482.68,
+      "test_rmse": 23894.84,
+      "test_mape": 13.14,
+      "training_time_sec": 37.72
+    },
+    {
+      "model_name": "Ridge Regression",
+      "cv_r2_mean": 0.6153,
+      "cv_r2_std": 0.3516,
+      "test_r2": 0.8476,
+      "test_mae": 15646.9,
+      "test_rmse": 25319.92,
+      "test_mape": 14.43,
+      "training_time_sec": 0.29
+    },
+    {
+      "model_name": "Gradient Boosting",
+      "cv_r2_mean": 0.8206,
+      "cv_r2_std": 0.0392,
+      "test_r2": 0.8382,
+      "test_mae": 15270.91,
+      "test_rmse": 26089.24,
+      "test_mape": 13.6,
+      "training_time_sec": 2.87
+    },
+    {
+      "model_name": "Lasso Regression",
+      "cv_r2_mean": 0.5567,
+      "cv_r2_std": 0.4408,
+      "test_r2": 0.8351,
+      "test_mae": 16634.4,
+      "test_rmse": 26339.71,
+      "test_mape": 15.03,
+      "training_time_sec": 0.25
+    },
+    {
+      "model_name": "XGBoost Regressor",
+      "cv_r2_mean": 0.8072,
+      "cv_r2_std": 0.0271,
+      "test_r2": 0.8264,
+      "test_mae": 15575.02,
+      "test_rmse": 27024.52,
+      "test_mape": 13.54,
+      "training_time_sec": 2.23
+    },
+    {
+      "model_name": "Random Forest",
+      "cv_r2_mean": 0.7712,
+      "cv_r2_std": 0.0589,
+      "test_r2": 0.7957,
+      "test_mae": 16820.66,
+      "test_rmse": 29317.49,
+      "test_mape": 15.01,
+      "training_time_sec": 2.28
+    },
+    {
+      "model_name": "Extra Trees",
+      "cv_r2_mean": 0.7892,
+      "cv_r2_std": 0.0368,
+      "test_r2": 0.7747,
+      "test_mae": 17647.34,
+      "test_rmse": 30788.19,
+      "test_mape": 15.69,
+      "training_time_sec": 2.01
+    },
+    {
+      "model_name": "Decision Tree",
+      "cv_r2_mean": 0.62,
+      "cv_r2_std": 0.1538,
+      "test_r2": 0.7095,
+      "test_mae": 19634.81,
+      "test_rmse": 34959.61,
+      "test_mape": 17.31,
+      "training_time_sec": 0.28
+    }
+  ]
+}
