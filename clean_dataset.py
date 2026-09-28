@@ -258,7 +258,6 @@ def clean_and_export_dataset():
         "price_category_distribution": df["price_category"].value_counts().to_dict(),
         "export_paths": {
             "cleaned_csv": OUTPUT_CSV,
-            "root_download_csv": ROOT_EXPORT_CSV,
             "cleaned_jsonl": OUTPUT_JSONL
         }
     }
@@ -270,7 +269,6 @@ def clean_and_export_dataset():
     print(f"  Total Clean Rows:    {len(df)}")
     print(f"  Missing Values:      0 across all {len(df.columns)} columns")
     print(f"  Cleaned CSV File:    {OUTPUT_CSV}")
-    print(f"  Root Download CSV:   {ROOT_EXPORT_CSV}")
     print(f"  Cleaned JSONL:       {OUTPUT_JSONL}")
     print(f"  Cleaning Summary:    {SUMMARY_REPORT}")
     print("=" * 70 + "\n")
