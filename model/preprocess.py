@@ -5,7 +5,7 @@ from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.compose import ColumnTransformer
 from sklearn.feature_selection import SelectPercentile, f_regression
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.preprocessing import OneHotEncoder, RobustScaler
 
 # Core selected features (curated to eliminate target leakage and high-null noise)
 SELECTED_NUMERIC_FEATURES = [
@@ -115,7 +115,7 @@ def build_preprocessor(percentile_feature_selection: int = 80) -> Pipeline:
       3. Statistical Feature Selection (SelectPercentile with f_regression) to eliminate noisy/sparse one-hot columns
     """
     numeric_pipe = Pipeline([
-        ("scaler", StandardScaler())
+        ("scaler", RobustScaler())
     ])
 
     categorical_pipe = Pipeline([

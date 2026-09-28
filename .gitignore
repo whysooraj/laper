@@ -25,3 +25,7 @@ logs/
 env/
 venv/
 .idea/
+
+catboost_info/
+*.pyc
+__pycache__/
