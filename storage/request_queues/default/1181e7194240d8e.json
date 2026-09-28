@@ -1,0 +1,16 @@
+{
+  "unique_key": "https://www.asus.com/in/laptops/for-gaming/tuf-gaming/asus-tuf-gaming-a14-2026-fa401ea",
+  "url": "https://www.asus.com/in/laptops/for-gaming/tuf-gaming/asus-tuf-gaming-a14-2026-fa401ea/",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {
+      "state": 4
+    }
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": "https://www.asus.com/in/laptops/for-gaming/tuf-gaming/asus-tuf-gaming-a14-2026-fa401ea/",
+  "handled_at": "2026-09-28 09:09:18.497522+00:00"
+}
