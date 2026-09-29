@@ -1,6 +1,5 @@
 import json
 import os
-import subprocess
 
 def create_cell(cell_type, source, outputs=None, execution_count=None):
     cell = {
@@ -40,19 +39,18 @@ cells = [
 
 ---
 
-## 📌 Executive Summary & Architectural Overview
+## 📌 Executive Summary & Pipeline Overview
 
 This notebook provides a complete, step-by-step academic and production pipeline:
 1. **Environment & Package Setup**
 2. **Raw Data Ingestion & Audit** (`laptop_prices_complete_1k.csv`)
 3. **Automated Data Cleaning & Imputation Pipeline**
-4. **Immediate Baseline Benchmark (8 Standard ML Models)** — *Demonstrates why standard models require domain customization.*
+4. **Immediate Baseline Benchmark (8 Standard ML Models)** — *Establishes baseline accuracy before applying custom algorithms.*
 5. **Domain Feature Engineering & Preprocessing** (`RobustScaler` + `OneHotEncoder`)
 6. **Custom LPARA Algorithm Suite** (`DomainAdaptiveRidgeRegressor`, `LPARAHybridRegressor`, `LPARAStackingRegressor`)
 7. **Systematic Ablation Study & Deep Analytical Insights** — *Explains Config 3 vs Config 4 random split behavior.*
 8. **Visual Telemetry & Leaderboards**
 9. **Production Model Serialization & Interactive CLI Predictor**
-10. **Engineering Appendix**: *Why `.py` modular files are required alongside `.ipynb` notebooks.*
 """),
 
     # -------------------------------------------------------------
@@ -111,7 +109,7 @@ audit_df[audit_df['Missing_Count'] > 0]
     # -------------------------------------------------------------
     create_cell("markdown", """## 2. Automated Data Cleaning & Imputation
 - **WHAT WE ARE DOING**: Cleaning price values (removing currency symbols/commas), filtering non-laptop accessories, standardizing brand names, casting RAM/Storage to numeric GBs, and imputing missing hardware specifications based on domain rules.
-- **WHY WE ARE DOING IT**: Garbage in, garbage out. Machine learning algorithms require zero-null numeric matrices and noise-free target labels (`price_average`).
+- **WHY WE ARE DOING IT**: Machine learning algorithms require zero-null numeric matrices and noise-free target labels (`price_average`).
 - **WHAT WE FOUND OUT**: Raw data contained ~15% missing operating system fields and unparsed price strings, which are fully resolved below.
 """),
     create_cell("code", """# Cell 4: Execute Cleaning Pipeline
@@ -130,13 +128,13 @@ df = df[(df['Price'] >= 10000) & (df['Price'] <= 1000000)].copy()
 if 'ram_gb' in df.columns:
     df['ram_gb'] = pd.to_numeric(df['ram_gb'], errors='coerce').fillna(16)
 else:
-    df['ram_gb'] = df['ram'].astype(str).str.extract(r'(\d+)')[0].astype(float).fillna(16)
+    df['ram_gb'] = df['ram'].astype(str).str.extract(r'(\\d+)')[0].astype(float).fillna(16)
 
 # Extract Numeric Storage (GB)
 if 'storage_gb' in df.columns:
     df['storage_gb'] = pd.to_numeric(df['storage_gb'], errors='coerce').fillna(512)
 else:
-    df['storage_gb'] = df['storage'].astype(str).str.extract(r'(\d+)')[0].astype(float).fillna(512)
+    df['storage_gb'] = df['storage'].astype(str).str.extract(r'(\\d+)')[0].astype(float).fillna(512)
 
 # Ensure Model String
 if 'model' not in df.columns and 'laptop_name' in df.columns:
@@ -170,8 +168,8 @@ print(f"Cleaned Dataset Successfully Exported: {df_clean.shape[0]} valid laptop 
 - **WHAT WE ARE DOING**: Immediately training 8 standard off-the-shelf machine learning regression models (Ridge, Lasso, ElasticNet, Decision Tree, Random Forest, Extra Trees, Gradient Boosting, XGBoost) right after final dataset creation.
 - **WHY WE ARE DOING IT**: To establish an empirical baseline performance score before applying domain-specific custom algorithms, proving the necessity of `LPARA`.
 - **WHAT WE FOUND OUT**:
-  - Baseline Ridge yields $R^2 \approx 0.847$ on random split, but suffers from severe overfitting when evaluated on unseen laptop models ($R^2$ drops to $0.729$).
-  - Decision Trees perform poorly ($R^2 \approx 0.689$), while tree ensembles (XGBoost $0.826$, Gradient Boosting $0.837$) capture non-linear hardware interactions better than linear baselines.
+  - Baseline Ridge yields $R^2 \\approx 0.847$ on random split, but suffers from severe overfitting when evaluated on unseen laptop models ($R^2$ drops to $0.729$).
+  - Decision Trees perform poorly ($R^2 \\approx 0.689$), while tree ensembles (XGBoost $0.826$, Gradient Boosting $0.837$) capture non-linear hardware interactions better than linear baselines.
 """),
     create_cell("code", """# Cell 5: Immediate 8-Model Standard Benchmark
 target = 'Price'
@@ -215,7 +213,7 @@ base_df
     create_cell("markdown", """## 4. Domain Preprocessing & Custom LPARA Algorithms
 - **WHAT WE ARE DOING**: Building a domain-specific preprocessing pipeline (`RobustScaler` + `OneHotEncoder` + `SelectPercentile`) and introducing custom algorithms (`DomainAdaptiveRidgeRegressor`, `LPARAHybridRegressor`, and `LPARAStackingRegressor`).
 - **WHY WE ARE DOING IT**:
-  - `RobustScaler` uses median and interquartile ranges, eliminating outlier leverage and reducing 5-Fold CV standard deviation down to $\pm 0.035$.
+  - `RobustScaler` uses median and interquartile ranges, eliminating outlier leverage and reducing 5-Fold CV standard deviation down to $\\pm 0.035$.
   - Custom `LPARA` models apply group-regularized penalties to hardware features and combine linear baseline accuracy with gradient boosting non-linear power.
 """),
     create_cell("code", """# Cell 6: Domain Preprocessor Definition
@@ -445,43 +443,10 @@ def predict_laptop_price(brand, model_name, ram_gb, storage_gb, cpu_tier, is_app
 predict_laptop_price("ASUS", "TUF Gaming A15", ram_gb=16, storage_gb=512, cpu_tier=4, is_gaming=1)
 predict_laptop_price("Apple", "MacBook Air M3", ram_gb=16, storage_gb=512, cpu_tier=4, is_apple=1)
 predict_laptop_price("Lenovo", "IdeaPad Slim 3", ram_gb=8, storage_gb=512, cpu_tier=2)
-"""),
-
-    # -------------------------------------------------------------
-    # SECTION 9: ENGINEERING APPENDIX - WHY .PY FILES ARE NEEDED
-    # -------------------------------------------------------------
-    create_cell("markdown", """## ⚙️ Engineering Appendix: Why `.py` Modular Files are Required Alongside Colab `.ipynb` Notebooks
-
-A common question in machine learning development is:  
-> *"Why do we need structured `.py` files (`model/preprocess.py`, `model/lpara_ridge.py`, `model/train.py`, `clean_dataset.py`) if we can run everything inside a Colab notebook?"*
-
-Here are the 4 core software engineering reasons:
-
-### 1. Production API & CLI Deployment
-- **Problem**: Production web servers (FastAPI, Flask, Django) and command-line interfaces (`predict.py --demo`) **cannot import `.ipynb` notebook files**.
-- **Solution**: Production services require modular Python files (`.py`) so models can be loaded and served via standard Python `import` statements.
-
-### 2. Automated Testing & CI/CD Pipelines
-- **Problem**: Continuous Integration (GitHub Actions, Jenkins) and unit test frameworks (`pytest`, `unittest`) require standard `.py` script files to run automated checks (`pytest tests/test_parser.py`).
-- **Solution**: `.py` files enable automated build verification before code is merged into production repos.
-
-### 3. Code Reusability & DRY Principle (Don't Repeat Yourself)
-- **Problem**: Notebooks copy-paste code across multiple cells. If you fix a bug in feature engineering, you must update 10 different notebook cells manually.
-- **Solution**: `.py` files organize code into clean Object-Oriented classes (`DomainAdaptiveRidgeRegressor`, `build_preprocessor`). Importing them across notebooks guarantees 100% code consistency.
-
-### 4. Version Control & Git Merge Conflict Resolution
-- **Problem**: `.ipynb` files store code, cell outputs, execution counts, and metadata inside giant JSON strings. Resolving Git merge conflicts on `.ipynb` files is notoriously error-prone.
-- **Solution**: Pure Python `.py` code files version cleanly in Git, allowing multi-developer collaboration without JSON corruption.
-
----
-**Summary**:  
-- **Use `.ipynb` Notebooks** for: Interactive data exploration, visual plotting, prototyping, and academic presentation.  
-- **Use `.py` Modular Packages** for: Production deployment, REST APIs, unit testing, and maintainable software architecture.
 """)
 ]
 
-# Write updated notebook
 with open("notebooks/laptop_price_prediction_colab.ipynb", "w") as f:
     json.dump(build_notebook(cells), f, indent=2)
 
-print("Updated laptop_price_prediction_colab.ipynb written successfully!")
+print("Reverted Colab notebook: Removed Engineering Appendix cell cleanly!")
