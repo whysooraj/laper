@@ -25,8 +25,7 @@ OUTPUT_CSV = os.path.join(OUTPUT_DIR, "lpara_cleaned_laptop_dataset.csv")
 OUTPUT_JSONL = os.path.join(OUTPUT_DIR, "lpara_cleaned_laptop_dataset.jsonl")
 SUMMARY_REPORT = os.path.join(OUTPUT_DIR, "cleaning_summary.json")
 
-# Root convenience copy for easy user access/download
-ROOT_EXPORT_CSV = os.path.join(ROOT_DIR, "lpara_cleaned_laptop_dataset.csv")
+
 
 
 def extract_cpu_tier(cpu_model: str, cpu_family: str) -> int:
@@ -238,10 +237,9 @@ def clean_and_export_dataset():
     total_nulls = sum(null_counts.values())
     print(f"5. Missing Value Verification: Total Nulls = {total_nulls} (100% complete!)")
 
-    # 7. Export Datasets
+    # 7. Export Cleaned Dataset
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     df.to_csv(OUTPUT_CSV, index=False, encoding="utf-8")
-    df.to_csv(ROOT_EXPORT_CSV, index=False, encoding="utf-8")
     df.to_json(OUTPUT_JSONL, orient="records", lines=True, force_ascii=False)
 
     summary = {
@@ -260,7 +258,6 @@ def clean_and_export_dataset():
         "price_category_distribution": df["price_category"].value_counts().to_dict(),
         "export_paths": {
             "cleaned_csv": OUTPUT_CSV,
-            "root_download_csv": ROOT_EXPORT_CSV,
             "cleaned_jsonl": OUTPUT_JSONL
         }
     }
@@ -272,7 +269,6 @@ def clean_and_export_dataset():
     print(f"  Total Clean Rows:    {len(df)}")
     print(f"  Missing Values:      0 across all {len(df.columns)} columns")
     print(f"  Cleaned CSV File:    {OUTPUT_CSV}")
-    print(f"  Root Download CSV:   {ROOT_EXPORT_CSV}")
     print(f"  Cleaned JSONL:       {OUTPUT_JSONL}")
     print(f"  Cleaning Summary:    {SUMMARY_REPORT}")
     print("=" * 70 + "\n")
