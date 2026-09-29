@@ -212,15 +212,19 @@ class LPARAStackingRegressor(BaseEstimator, RegressorMixin):
 
     def fit(self, X, y):
         import xgboost as xgb
-        from catboost import CatBoostRegressor
         from sklearn.ensemble import GradientBoostingRegressor, StackingRegressor
-        from sklearn.ensemble import RandomForestRegressor
+
+        try:
+            from catboost import CatBoostRegressor
+            base_cb = CatBoostRegressor(iterations=220, learning_rate=0.04, depth=5, random_seed=42, verbose=0)
+        except ImportError:
+            from sklearn.ensemble import ExtraTreesRegressor
+            base_cb = ExtraTreesRegressor(n_estimators=self.n_estimators, max_depth=14, random_state=42)
 
         base_lpara = DomainAdaptiveRidgeRegressor(
             alpha_hw=self.alpha_hw, alpha_brand=self.alpha_brand, alpha_seg=self.alpha_seg
         )
         base_xgb = xgb.XGBRegressor(n_estimators=self.n_estimators, learning_rate=0.06, max_depth=5, random_state=42)
-        base_cb = CatBoostRegressor(iterations=220, learning_rate=0.04, depth=5, random_seed=42, verbose=0)
         base_gb = GradientBoostingRegressor(n_estimators=self.n_estimators, learning_rate=0.06, max_depth=5, random_state=42)
 
         self.stacker_ = StackingRegressor(
