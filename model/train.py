@@ -44,6 +44,8 @@ BENCHMARK_REPORT_PATH = os.path.join(SAVED_MODEL_DIR, "model_benchmark_report.js
 FEATURES_METADATA_PATH = os.path.join(SAVED_MODEL_DIR, "selected_features.json")
 
 
+from model.lpara_ridge import DomainAdaptiveRidgeRegressor, LPARAHybridRegressor, LPARAStackingRegressor
+
 def get_candidate_models() -> Dict[str, object]:
     """
     Returns a comprehensive suite of competitive regression algorithms
@@ -66,6 +68,9 @@ def get_candidate_models() -> Dict[str, object]:
     )
 
     models = {
+        "LPARA-Stacking (A+ Meta Ensemble)": LPARAStackingRegressor(alpha_hw=0.5, alpha_brand=2.0, alpha_seg=1.0),
+        "LPARA-Hybrid (Two-Stage)": LPARAHybridRegressor(alpha_hw=1.0, alpha_brand=3.5, alpha_seg=1.5, xgb_lr=0.04, xgb_depth=4),
+        "LPARA-Ridge (Linear Only)": DomainAdaptiveRidgeRegressor(alpha_hw=1.0, alpha_brand=4.0, alpha_seg=2.0, alpha_inter=5.0),
         "Ridge Regression": base_ridge,
         "Lasso Regression": Lasso(alpha=0.001, max_iter=2000),
         "Decision Tree": DecisionTreeRegressor(max_depth=10, min_samples_split=4, random_state=42),
