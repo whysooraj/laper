@@ -1,9 +1,26 @@
-# Byte-compiled / optimized / DLL files
+# Python bytecode & cache
 __pycache__/
 *.py[cod]
 *$py.class
+*.so
 
-# Raw scraped HTML cache (>250MB)
+# Environment & IDEs
+.venv/
+env/
+venv/
+ENV/
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Temporary Crawler storage & CatBoost logs
+catboost_info/
+storage/
+logs/
+*.log
+
+# Raw scraped HTML cache & temporary scratch files
 data/raw/
 data/page_text.txt
 data/product.html
@@ -16,16 +33,6 @@ data/normalized/normalized_laptops.jsonl
 data/normalized/priced_laptops.jsonl
 data/normalized/valid.jsonl
 
-# Logs
-logs/
-*.log
-
-# Environments & IDE
-.venv/
-env/
-venv/
-.idea/
-
-catboost_info/
-*.pyc
-__pycache__/
+# OS metadata
+.DS_Store
+Thumbs.db
